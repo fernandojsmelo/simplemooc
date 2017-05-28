@@ -2,6 +2,14 @@ from django.db import models
 
 # Create your models here.
 
+class CourseManager(models.Manager):
+
+    def search(self, query):
+        return self.get_queryset().filter(
+            models.Q(name__icontains=query) | \
+            models.Q(description__icontains=query)
+        )
+
 class Course(models.Model):
 
     name = models.CharField('Nome', max_length=100)
@@ -21,3 +29,5 @@ class Course(models.Model):
     updated_at = models.DateTimeField(
         'Modificado em', auto_now=True
     )
+
+    object = CourseManager()
