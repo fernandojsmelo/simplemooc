@@ -22,4 +22,5 @@ urlpatterns = [
     # Examples:
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('simplemooc.core.urls', namespace='core')),
+    url(r'cursos/', include('simplemooc.courses.urls', namespace='courses')),
 ]
