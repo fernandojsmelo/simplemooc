@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^sair/$', auth_views.logout,
         {'next_page': 'core:home'}, name='logout'),
     url(r'^cadastre-se/$', views.register, name='register'),
+    url(r'^$', views.dashboard, name='dashboard'),
 
 ]
