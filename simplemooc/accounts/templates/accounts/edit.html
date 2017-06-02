@@ -7,7 +7,11 @@
 {% endblock %}
 
 {% block dashborad_content %}
-<form class="pure-form pure-form-stacked">
+<form class="pure-form pure-form-stacked" method="post">
+    {% csrf_token %}
+    {% if success %}
+    <p>Os Dados foram alterados con socesso</p>
+    {% endif %}
     <fieldset>
         {{ form.non_field_errors }}
         {% for field in form %}
@@ -18,7 +22,7 @@
         </div>
         {% endfor %}
         <div class="pure-controls">
-            <button type="submit" class="pure-button pure-button-primary">Enviar</button>
+            <button type="submit" class="pure-button pure-button-primary">Salvar Modificações</button>
         </div>
     </fieldset>
 </form>

@@ -33,7 +33,15 @@ def register(request):
 @login_required
 def edit(request):
     template_name = 'accounts/edit.html'
-    form = EditAccontsForm()
     context = {}
+    if request.method == 'POST':
+        form = EditAccontsForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            form = EditAccontsForm(instance=request.user)
+            context['success'] = True
+    else:
+        form = EditAccontsForm(instance=request.user)
+
     context['form'] = form
     return render(request, template_name, context)
