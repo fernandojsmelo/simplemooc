@@ -4,6 +4,16 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField(label='email')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.object.filter(email=email).exists():
+            return email
+        raise forms.ValidationError('Nenhum usuário encontrado com este e-mail')
+
 class RegisterForm(forms.ModelForm):
 
     password1 = forms.BooleanField(label='Senha', widget=forms.PasswordInput)
