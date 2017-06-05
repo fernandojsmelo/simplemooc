@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
+from simplemooc.core.mail import send_mail_template
+from simplemooc.core.utils import generate_hash_key
+from simplemooc.accounts.models import PasswordReset
 User = get_user_model()
 
 
@@ -12,7 +15,21 @@ class PasswordResetForm(forms.Form):
         email = self.cleaned_data['email']
         if User.object.filter(email=email).exists():
             return email
-        raise forms.ValidationError('Nenhum usuário encontrado com este e-mail')
+        raise forms.ValidationError(
+            'Nenhum usuário encontrado com este e-mail'
+        )
+
+    def save(self):
+        user = User.object.get( email=self.cleaned_data['email'] )
+        key = generate_hash_key( user.username )
+        reset = PasswordReset( key=key, user=user )
+        reset.save()
+        template_name = 'accounts/password_reset_mail.html'
+        subject = 'Criar nova senha no Simple Mooc'
+        context = {
+            'reset': reset
+        }
+        send_mail_template(subject, template_name, context, [user.email])
 
 class RegisterForm(forms.ModelForm):
 
