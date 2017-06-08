@@ -32,7 +32,7 @@
                 {% empty %}
                 <li>Nenhum curso encontrado</li>
                 {% endfor %}
-                <li class="pure-menu-heading">Conta</li>
+                <li class="pure-menu-heading">Configurações de Conta</li>
                 <li>
                     <a href="{% url 'accounts:edit' %}">
                         <i class="icon-cog"></i>
@@ -51,8 +51,24 @@
     <div class="pure-u-2-3">
         <div class="inner">
             {% block dashborad_content %}
-            <p><strong>Usúario</strong>:{{ user }}</p>
-            <p><strong>E-mail</strong>: {{ user.email }}</p>
+            <h2>Meus Cursos</h2>
+            {% for enrollment in enrollments %}
+            <div class="well">
+                <h3>
+                    {{ enrollment.course }}
+                    ({{ enrollment.course.start_date|date:'d/m/Y'|default:'Sem Data' }})
+                </h3>
+                {{ enrollment.course.description|linebreaks }}
+                <div class="pure-controls">
+                    <a href="#" class="pure-button pure-button-primary">Acessar</a>
+                    <a href="#" class="pure-button button-error">Cancelar</a>
+                </div>
+            </div>
+            {% empty %}
+            <aside class="pure-u-1">
+                <p>Nenhum Curso Inscrito</p>
+            </aside>
+            {% endfor %}
             {% endblock %}
         </div>
     </div>
