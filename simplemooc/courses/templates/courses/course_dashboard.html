@@ -1,0 +1,40 @@
+{% extends "accounts/dashboard.html" %}
+
+{% load staticfiles %}
+
+{% block breadcrumb %}
+    {{ block.super }}
+    <li>/</li>
+    <li><a href="{% url 'courses:announcements' course.slug %}">{{ course }}</a> </li>
+{% endblock %}
+
+{% block menu_options %}
+<li class="pure-menu-heading">
+    {{ course }}
+</li>
+<li>
+    <a href="#">
+        <i class="glyphicon glyphicon-facetime-video"></i>
+        Aulas e Materiais
+    </a>
+</li>
+<li>
+    <a href="#">
+        <i class="glyphicon glyphicon-info-sign"></i>
+        Informações
+    </a>
+</li>
+<li>
+    <a href="#">
+        <i class="glyphicon glyphicon-envelope"></i>
+        Anúncios
+    </a>
+</li>
+<li>
+    <a href="#">
+        <i class="glyphicon glyphicon-comment"></i>
+        Fórum de Dúvidas
+    </a>
+</li>
+{{ block.super }}
+{% endblock %}
