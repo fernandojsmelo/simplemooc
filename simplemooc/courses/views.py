@@ -4,7 +4,6 @@ from django.contrib import messages
 
 from .models import Course, Enrollment, Announcement
 from .forms import ContactCourse, CommentForm
-# Create your views here.
 
 def index(request):
     course = Course.object.all()
