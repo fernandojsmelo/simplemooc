@@ -13,5 +13,7 @@ urlpatterns = [
         name='undo_enrollment'),
     url(r'^(?P<slug>[\w_-]+)/anucios/$',views.announcements, name='announcements'),
     url(r'^(?P<slug>[\w_-]+)/anucios/(?P<pk>\d+)/$',views.show_announcement, name='show_announcement'),
+    url(r'^(?P<slug>[\w_-]+)/aulas/$',views.lessons, name='lessons'),
+    url(r'^(?P<slug>[\w_-]+)/aulas/(?P<pk>\d+)/$',views.lesson, name='lesson'),
 
 ]
