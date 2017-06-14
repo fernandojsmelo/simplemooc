@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import Course, Enrollment, Announcement, Lesson
+from .models import Course, Enrollment, Announcement, Lesson, Material
 from .forms import ContactCourse, CommentForm
 from .decorators import enrollment_required
 
@@ -130,3 +130,22 @@ def lesson(request, slug, pk):
         'lesson': lesson,
     }
     return render(request, template, context)
+
+@login_required
+@enrollment_required
+def material(request, slug, pk):
+    course = request.course
+    material = get_object_or_404(Material, pk, lesson__course=course)
+    lesson = material.lesson
+    if not request.user.is_staff and not lesson.is_available():
+        messages.error(request, 'Este Material não está Disponível')
+        return  redirect('courses:lesson', slug=course.slug, pk=lesson.pk)
+    if not material.embedded():
+        return redirect(material.file.url)
+    template = 'courses/material.html'
+    context = {
+        'course': course,
+        'lesson': lesson,
+        'material': material,
+    }
+    return render( request, template, context )
