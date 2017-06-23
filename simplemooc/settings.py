@@ -75,6 +75,21 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    'django.template.context_processors.request',
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "myapp.processor.foos",
+)
+
+#from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
+)
+
 WSGI_APPLICATION = 'simplemooc.wsgi.application'
 
 
