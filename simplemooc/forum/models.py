@@ -32,7 +32,10 @@ class Thread(models.Model):
 
 class Reply(models.Model):
 
-    peply = models.TextField( 'Resposta' )
+    thread = models.ForeignKey(
+        Thread, verbose_name='Tópico', related_name='replies'
+    )
+    reply = models.TextField( 'Resposta' )
     author = models.ForeignKey( settings.AUTH_USER_MODEL, verbose_name='Autor', related_name='replies' )
     correct = models.BooleanField('Correta?', blank=True, default=False)
 
