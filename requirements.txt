@@ -20,7 +20,7 @@ msgpack-python==0.4.8
 olefile==0.44
 patterns==0.3
 pbr==3.0.1
-Pillow==4.1.1
+Pillow==8.3.2
 psycopg2==2.7.1
 public==0.0.38
 pycrypto==2.6.1
