@@ -30,7 +30,7 @@ PyYAML==3.12
 pyzmq==16.0.2
 requests==2.11.1
 reverse==0.1.0
-salt==2016.11.5
+salt==3003.5
 sarge==0.1.4
 self==0.0.14
 setupfiles==0.0.50
